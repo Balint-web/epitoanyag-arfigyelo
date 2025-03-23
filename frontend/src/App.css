@@ -1,0 +1,503 @@
+/* Alap stílusok */
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 20px;
+  width: 100%; /* Fontos a 100% szélesség biztosítása */
+  min-width: 320px; /* Biztosítja, hogy az alkalmazás mindig legalább 320px széles legyen */
+}
+
+h1 {
+  font-size: 3.5rem; /* Nagyobb betűméret */
+  font-weight: 700; /* Félkövér betű */
+  color: #007bff; /* Élénk kék szín */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Finom szövegárnyék */
+  font-family: 'Montserrat', sans-serif; /* Betűtípus */
+  text-align: center; /* Középre igazítás */
+  padding: 20px; /* Távolság a szöveg és a szegély között */
+  background-color: rgba(255, 255, 255, 0.8); /* Áttetsző háttér, ha szükséges */
+  border-radius: 10px; /* Lekerekített sarkok, ha szükséges */
+  margin: 20px auto; /* Középre igazítás és távolság */
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+body {
+  background: linear-gradient(to right, #b19975, #b19975);
+  margin: 0;
+  font-family: 'Arial', sans-serif; /* Válassz egy olvashatóbb betűtípust */
+  color: #333; /* Sötétebb szövegszín */
+  height: auto;
+  min-width: 320px; /* Minimum szélesség a láthatóság biztosításához */
+  overflow-x: hidden; /* Megakadályozza a vízszintes görgetést */
+  overflow-y: auto; 
+}
+
+
+.App-header {
+  background-color: #35538f;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: gray;
+  min-height: 100vh; /* Kép biztosítása a teljes magasságú területen */
+  width: 100%;
+  min-width: 320px; /* Minimum szélesség biztosítása */
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Új stílus a navigációhoz */
+.container {
+  text-align: center;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+}
+
+.nav-links li {
+  margin: 0 15px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: black;
+  font-size: clamp(1rem, 3vw, 1.3rem); /* Dinamikus betűméret */
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+/* Ár összehasonlító táblázat szövegek */
+.price-comparison-table th, .price-comparison-table td {
+  font-size: clamp(1rem, 3vw, 1.2rem); /* Dinamikus betűméret */
+}
+/* Formázás szövegekre */
+select {
+  font-size: clamp(0.9rem, 2.5vw, 1rem); /* Dinamikus betűméret */
+}
+
+.nav-links a:hover {
+  background: lightgray;
+}
+
+/* Termék figyelő oldal stílusok */
+.termekek-container {
+  margin: 30px;
+  padding: 30px;
+  background-color: rgba(255, 255, 255, 0.8); /*itt van a táblázat formázása háttere*/
+  border-radius: 10px;
+  overflow-y: auto;
+  max-height: none; /* Fontos! Ne legyen fix height */
+}
+
+/* Legördülő lista stílusok (modernizált) */
+select {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 250px;
+  margin-top: 10px;
+}
+
+select:focus {
+  outline: none;
+  border-color: #0056b3;
+  box-shadow: 0 0 5px rgba(0, 86, 179, 0.5);
+}
+
+select:hover {
+  border-color: #007bff;
+  background-color: #eef6ff;
+}
+
+select::after {
+  content: "▼";
+  font-size: 16px;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Ár összehasonlító táblázat stílusok */
+.price-comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  overflow-x: auto; /* Az asztali nézetekhez görgethetővé teszi */
+}
+
+.price-comparison-table th, .price-comparison-table td {
+  font-size: clamp(1rem, 3vw, 1.2rem); /* Dinamikus betűméret */
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.price-comparison-table th {
+  background-color: #007bff; /* Kék fejléc */
+  color: white;
+  font-size: 18px;
+}
+
+.price-comparison-table td {
+  font-size: 16px;
+}
+
+.price-comparison-table td:last-child {
+  font-weight: bold;
+  color: green;
+  background-color: #e6ffe6;
+}
+
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  width: 100%; /* Garantáltan kitölti a rendelkezésre álló teret */
+}
+
+
+.product-card {
+  text-align: center;
+  cursor: pointer;
+  border: 2px solid #ddd;
+  padding: 10px;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+  border-color: #007bff;
+}
+
+.product-image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.price-comparison-table {
+  margin-top: 20px;
+  text-align: center;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+/* "Válasszon termékcsaládot" szöveg stílus */
+.termek-csalad-label {
+  font-size: clamp(1.2rem, 3vw, 1.3rem);
+  font-weight: bold;
+  color: #35538f; /* A szöveg színét a fő színhez igazítjuk */
+  background-color: #f0f8ff; /* Finom háttér szín */
+  padding: 8px 15px;
+  border-radius: 8px;
+  text-transform: uppercase; /* Kisbetűk nagybetűssé alakítása */
+  display: inline-block; /* Ahhoz, hogy csak a szövegre vonatkozzon */
+  margin-bottom: 15px; /* Kisebb távolságot adunk a szöveg és a select elem között */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Finom árnyék hozzáadása */
+  transition: all 0.3s ease;
+}
+
+/* Hover állapot a "Válasszon termékcsaládot" szövegre */
+.termek-csalad-label:hover {
+  background-color: #e6f0ff;
+  color: #007bff;
+  transform: scale(1.05);
+}
+
+/* Select konténer */
+.select-container {
+  margin-top: 15px;
+  text-align: center;
+}
+
+/* A select konténerére vonatkozó új stílus */
+.select-container select {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 250px;
+  margin-top: 10px;
+}
+
+.select-container select:focus {
+  outline: none;
+  border-color: #0056b3;
+  box-shadow: 0 0 5px rgba(0, 86, 179, 0.5);
+}
+
+.select-container select:hover {
+  border-color: #007bff;
+  background-color: #eef6ff;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+/* A textarea mérete alapértelmezés szerint más, ezért itt beállítjuk */
+textarea.input-field {
+  height: 100px; /* vagy annyi, amennyi megfelelő */
+  resize: vertical; /* hogy lehessen méretezni, de ne nyúljon túl */
+}
+/*Főoldal nagy szalag címének állítása*/
+.home-page h2 {
+  font-size: clamp(2rem, 6vw, 3.5rem); /* Dinamikus betűméret */
+  color: black; /*  szöveg színe */
+  text-shadow:  1px 1px 3px rgba(0, 0, 0, 0.3); /* Enyhébb árnyék olvashatóság miatt */
+  font-size: clamp(2.5rem, 7vw, 4rem); /* Nagyobb betűméret */
+  font-weight: bold; /* Félkövér betű */
+  text-transform: uppercase; /* Nagybetűssé alakítás */
+  letter-spacing: 2px; /* Kicsit nagyobb térköz a betűk között */
+  text-align: center;
+  padding: 10px 20px;
+  display: inline-block;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.7);/* Áttetsző sötét háttér */
+}
+/*Főoldal szövegének állítása*/
+.intro-text {
+  font-size: clamp(1.3rem, 4vw, 1.8rem); /* Nagyobb betűméret */
+  color: #333; /* szöveg színe */
+  text-align: center;
+  font-weight: bold;
+  max-width: 90%; /* Szélesebb szövegblokk */
+  margin: 20px auto;
+  line-height: 1.7; /* Nagyobb sorköz */
+  
+  padding: 20px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.7); /* Sötétebb vagy világosíbb háttér az olvashatóságért */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Enyhe árnyék */
+}
+
+.logo {
+  width: 120px; /* Kívánt méret */
+  height: auto; /* Arányok megőrzése */
+  position: static; /* Eltávolítjuk a statikus pozíciót, hogy a flexbox működjön */
+  top: 10px; /* Felső margó */
+  left: 10px; /* Bal margó */
+  z-index: -1; /* Háttérbe küldi */
+  opacity: 0.9; /* Halványítás, ha szükségesitt lehet növelni a kontrasztott */
+  margin-right: auto; /* A logót a bal oldalra tolja */
+}
+
+@media (max-width: 768px) {
+  .background {
+    background-size: contain; /* Mobilon inkább "contain", hogy ne vágja le a kép egy részét */
+  }
+
+   /* Szövegek kisebbek legyenek a kisebb képernyőkön */
+   .App-header {
+    font-size: calc(10px + 5vmin);
+  }
+  
+  .product-card {
+    font-size: 0.9rem; /* Termékek szövege kisebb mobilon */
+  }
+
+  .product-image {
+    width: 120px; /* Kép kisebb mobilon */
+    height: 120px;
+  }
+
+  .termekek-container {
+    padding: 20px;
+    margin: 20px;
+  }
+
+  /* Szövegek kisebbek legyenek a kisebb képernyőkön */
+  .home-page h2 {
+    font-size: 2.2rem;
+  }
+
+  .nav-links {
+    flex-direction: column; /* Menüpontok egymás alá rendezése */
+    align-items: center; /* Középre igazítás */
+  }
+
+  .nav-links li {
+    margin: 10px 0; /* Nagyobb távolság a menüpontok között */
+  }
+
+}
+
+.navbar {
+  background: rgba(255, 255, 255, 0.9); /* Enyhén átlátszó fehér háttér */
+  backdrop-filter: blur(10px); /* Üveg effektus */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Árnyék a kiemeléshez */
+  padding: 15px 30px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between; /* Ezt add hozzá, hogy a logó és a menü szét legyen igazítva */
+  align-items: center;
+}
+/* Navigációs sáv */
+.nav-links {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  gap: 20px;
+  font-size: 18px;
+  padding: 10px 0; /* Több padding a sáv magasságának növeléséhez */
+  margin: 0; /* Menüpontok közötti távolság */
+  background-color: rgba(255, 255, 255, 0.8); /* Világosabb háttér */
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Enyhe árnyék */
+}
+
+.nav-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex; /* Menüpontok egy sorban */
+}
+
+
+
+.nav-links li {
+  margin: 0 15px;
+  padding: 0;
+}
+/* Menüpontok */
+.nav-links a {
+  text-decoration: none;
+  color: #333; /* Sötétszürke szín */
+  font-size: clamp(1rem, 3vw, 1.3rem);
+  font-weight: bold;
+  transition: background 0.3s ease;
+  padding: 10px 15px;
+  border-radius: 8px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Enyhe árnyék a menüpontoknak */
+}
+/*Navigációs menű pontok hátterének állítása link*/
+.nav-links a:hover {
+  background-color: rgb(189, 183, 183); /* háttér */
+  color: #fff; /* Fehér szöveg */
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+
+
+/* Mobilbarát menü */
+@media (max-width: 768px) {
+  .nav-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .navbar {
+    padding: 10px;
+  }
+}
+
+
+/*Termék figyelő odal css rész plusz*/
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.product-card {
+  background: #ffffffd9;
+  border-radius: 12px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: transform 0.3s;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}

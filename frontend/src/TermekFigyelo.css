@@ -1,0 +1,58 @@
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  padding: 24px;
+}
+
+.product-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+}
+
+.product-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.product-card h3 {
+  font-size: 1.2rem;
+  margin: 16px 0 8px;
+}
+
+.product-card p {
+  color: #555;
+  margin-bottom: 16px;
+}
+
+.product-card button {
+  background-color: #1E40AF;
+  color: white;
+  padding: 10px 16px;
+  margin: 5px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.product-card button:hover {
+  background-color: #1E3A8A;
+}
+
+.product-card input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}

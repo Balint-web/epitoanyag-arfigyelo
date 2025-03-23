@@ -1,0 +1,198 @@
+/* src/Kapcsolat.css */
+
+/* Alap stílusok */
+.contact-container {
+    padding: 30px;
+    max-width: 900px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    overflow: auto;  /* Engedélyezi a görgetést, ha a tartalom túlnyúlik */
+    min-height: 100vh;  /* Biztosítja, hogy a konténer legalább a teljes képernyőmagasságot kitöltse */
+}
+
+/* Címek stílusa */
+.contact-container h2 {
+    text-align: center;
+    color: #007bff;
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.contact-container h3 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+/* Kapcsolatfelvételi szövegek */
+.contact-container p {
+    font-size: 18px;
+    margin: 10px 0;
+    line-height: 1.6;
+    color: #555;
+}
+
+/* űrlap stílusa */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+/* űrlap input mezők */
+.contact-form input {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: border-color 0.3s;
+}
+
+/* Küldés gomb */
+.contact-form button {
+    padding: 12px 20px;
+    font-size: 18px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.contact-form button:hover {
+    background-color: #218838;
+}
+
+/* FAQ szakasz */
+.faq-section {
+    margin-top: 30px;
+}
+
+/* FAQ elemek */
+.faq-item {
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+/* Kérdés gombok */
+.faq-question {
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #f8f9fa;
+    border: none;
+    width: 100%;
+    text-align: left;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.faq-question:hover {
+    background-color: #f1f1f1;
+}
+
+/* Kérdés válaszok */
+.faq-answer {
+    font-size: 16px;
+    color: #555;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border-radius: 8px;
+    margin-top: 10px;
+    display: none;
+}
+
+.faq-answer.active {
+    display: block;
+}
+
+/* Animációk */
+.contact-form input,
+.contact-form button {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.5s forwards;
+}
+
+.contact-form input:nth-child(1),
+.contact-form button {
+    animation-delay: 0.3s;
+}
+
+.contact-form input:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.contact-form input:nth-child(3) {
+    animation-delay: 0.5s;
+}
+
+.contact-form input:nth-child(4) {
+    animation-delay: 0.6s;
+}
+
+.contact-form button {
+    animation-delay: 0.7s;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.faq-item button {
+    animation: fadeInUp 0.5s ease-out;
+    animation-delay: 1s;
+}
+
+/* Reszponzív dizájn */
+@media (max-width: 768px) {
+    .contact-container {
+        padding: 20px;
+    }
+
+    .contact-form input {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .contact-form button {
+        font-size: 16px;
+        padding: 10px 15px;
+    }
+    
+    /* Biztosítja, hogy a FAQ válaszok ne tűnjenek el */
+    .faq-answer {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+
+/* Teljesen függőleges görgetés engedélyezése kisebb ablakoknál */
+@media (max-height: 600px) {
+    .contact-container {
+        padding: 10px;
+    }
+
+    .contact-form input {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .contact-form button {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+}
