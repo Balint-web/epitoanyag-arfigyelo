@@ -25,8 +25,7 @@ SECRET_KEY = 'django-insecure-4%d*2_rg4_z_ym3gcxljbj84s3vqz_=uho=)lq$o&n9tsny(+m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['epitoanyag-arfigyelo.onrender.com', 'localhost', '127.0.0.1'] //ide az jön ahol megjelenitjük a dolgokat
-
+ALLOWED_HOSTS = ['epitoanyag-arfigyelo.onrender.com', 'localhost', '127.0.0.1']  # ide az jön ahol megjelenik
 
 # Application definition
 
