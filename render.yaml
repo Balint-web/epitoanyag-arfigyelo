@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: epitoanyag-arfigyelo
+    runtime: python
+    python_version: 3.12.2
+    buildCommand: ""
+    startCommand: gunicorn backend.wsgi

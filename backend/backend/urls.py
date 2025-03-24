@@ -3,5 +3,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('shop/', include('shop.urls')),  # 🔹 Az API elérhetősége
+    path('', include('shop.urls')),   # ➔ Hozzáadva a shop app urljei
 ]

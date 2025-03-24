@@ -4,12 +4,14 @@ from .models import Product, Price, Store
 class StoreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Store
-        fields = '__all__'
+        fields = ['name', 'url']
+
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = '__all__'
+        fields = ['name']
+
 
 class PriceSerializer(serializers.ModelSerializer):
     product = ProductSerializer()
