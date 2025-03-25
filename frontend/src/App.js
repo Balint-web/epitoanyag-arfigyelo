@@ -18,8 +18,8 @@ function App() { // itt van a háttérkép beállításai
   	backgroundSize: 'cover', // "auto" vagy "contain" itt kell állítani contain vagy másra
    	backgroundRepeat: 'no-repeat',
     	backgroundPosition: 'center',
-    	width: "100vw",	
-    	height: '100dvh',
+    	width: "100%",	
+    	minHeight: '100vh',
 	backgroundAttachmant: "fixed", //háttér fix marad
   	overflow: "hidden", // elkerüli a nemkivánatos görgetést
 	margin: "0",

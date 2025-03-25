@@ -3,79 +3,83 @@
   margin: auto;
   padding: 20px;
   min-height: 100vh;
-  padding-bottom: 150px;   /* még több hely a végére */
+  padding-bottom: 150px;
   box-sizing: border-box;
+  background-color: #f9f9f9 !important;
 }
 
 html, body {
   min-height: 100vh;
   height: auto;
   overflow-x: hidden;
+  background-color: #f9f9f9;
+  font-family: 'Segoe UI', sans-serif;
+  scroll-behavior: smooth;
 }
 
-
-
-.title {
-  text-align: center;
-  font-size: 3rem;
-  margin: 30px auto;
-  color: #000;
-  background: rgba(255, 255, 255, 0.9); /* fehér háttér áttetsző */
-  padding: 15px 30px;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  max-width: fit-content;
+/* ✅ KATEGÓRIA és TERMÉK GRID */
+.category-grid, .product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
 }
 
-
-.category-grid {
-  
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* alap reszponzív */
-    gap: 30px;
-    margin-bottom: 40px;
-  }
-
-
+/* ✅ Kategória kártya - kisebb, de a kép nagyobb */
 .category-card {
   background: #fff;
   border-radius: 16px;
-  padding: 20px;
+  padding: 15px;
   text-align: center;
   box-shadow: 0 8px 16px rgba(0,0,0,0.15);
   cursor: pointer;
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: transform 0.3s;
+  border: 2px solid transparent;
+  height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .category-card:hover {
   transform: translateY(-8px);
-}
-
-.category-card img {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 12px;
-  margin-bottom: 12px;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.2);
 }
 
 .category-card.active {
-  border: 3px solid #2563eb;
+  border: 2px solid #2563eb;
 }
 
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
+.category-card img {
+  width: 200px;   /* NAGY kép */
+  height: 200px;
+  object-fit: cover;
+  margin-bottom: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
+
+.category-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #222;
+}
+
+/* ✅ Termék kártya - nagyobb doboz, kisebb kép */
 .product-card {
   background: #fff;
   border-radius: 16px;
   padding: 20px;
   text-align: center;
   box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: transform 0.3s;
+  border: 2px solid transparent;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .product-card:hover {
@@ -84,71 +88,91 @@ html, body {
 }
 
 .product-card img {
-  width: 100%;
-  height: 200px;
+  width: 100px;   /* Kisebb kép */
+  height: 100px;
   object-fit: cover;
-  border-radius: 12px;
+  margin-bottom: 12px;
 }
 
-.product-card h3 {
-  font-size: 1.2rem;
-  margin: 16px 0 8px;
+.product-price {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #007bff;
+  margin-top: 10px;
 }
 
-.product-card p {
+.store {
   color: #555;
-  margin-bottom: 16px;
+  margin-bottom: 10px;
 }
 
+/* ✅ GOMBOK egységesen a termékekhez */
 .buttons {
   display: flex;
   justify-content: space-around;
+  gap: 10px;
+  margin-top: auto;
 }
 
 .product-card button {
-  background-color: #1E40AF;
+  background: linear-gradient(135deg, #2563eb, #1E40AF);
   color: white;
-  padding: 10px 16px;
+  padding: 10px 14px;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  font-weight: 600;
+  transition: transform 0.3s, background 0.3s;
 }
 
 .product-card button:hover {
-  background-color: #1E3A8A;
+  background: linear-gradient(135deg, #1E3A8A, #2563eb);
+  transform: scale(1.05);
 }
 
 /* ✅ Mobil optimalizáció */
 @media (max-width: 768px) {
-  .title {
-    font-size: 2rem;
-    padding: 8px 16px;
-  }
-
-  .category-grid {
-    grid-template-columns: 1fr 1fr; /* 2 oszlop mobilon */
+  .category-grid, .product-grid {
+    grid-template-columns: 1fr 1fr;
     gap: 15px;
   }
 
   .category-card img {
+    width: 100px;
     height: 100px;
   }
 
   .product-card img {
-    height: 160px;
+    width: 80px;
+    height: 80px;
   }
-  
-  category-grid {
-  grid-template-columns: 1fr 1fr;  /* Szép 2 oszlop mobilon */
+
+  .category-card {
+    height: auto;
+    padding: 15px;
   }
-  
+
+  .product-card {
+    height: auto;
+    padding: 15px;
+  }
+
+  .buttons {
+    flex-direction: column;
+    gap: 12px;
+  }
 }
-html {
-  scroll-behavior: smooth;
+
+/* ✅ Extra kis kijelző */
+@media (max-width: 600px) {
+  .category-grid, .product-grid {
+    grid-template-columns: 1fr;
+  }
 }
+
+/* ✅ Nagy felbontás */
 @media (min-width: 1024px) {
-  .category-grid {
-    grid-template-columns: repeat(3, 1fr); /* fix 3 oszlop asztalon */
+  .category-grid, .product-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
 }

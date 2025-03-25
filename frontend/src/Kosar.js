@@ -1,45 +1,102 @@
-import React from "react";
+import React, { useState } from "react";
 import { useCart } from "./Context";
+import './Kosar.css';
 
-function Kosar() {
+const stores = [
+  { name: "Daniella", icon: "🏬" },
+  { name: "Mentavill", icon: "🏢" },
+  { name: "Govill", icon: "🛒" },
+  { name: "Mixvill", icon: "🏠" }
+];
+
+export default function Kosar() {
   const { cart, removeFromCart } = useCart();
+  const [selectedStore, setSelectedStore] = useState("");
 
-  const totalPrice = cart.reduce((sum, item) => sum + item.price, 0);
+  const getStorePrice = (product, store) => (product.store === store ? product.price : null);
+
+  const storeTotals = stores.map((store) => {
+    let total = 0;
+    cart.forEach((product) => {
+      const price = getStorePrice(product, store.name);
+      if (price) total += price;
+    });
+    return { store: store.name, total };
+  });
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white rounded-xl shadow-lg">
-      <h2 className="text-3xl font-bold mb-6 text-center">🛒 Kosár</h2>
+    <div className="kosar-container">
+      <h2 className="kosar-title">🛒 Kosár - Ár összehasonlítás</h2>
 
-      {cart.length === 0 ? (
-        <p className="text-center text-gray-600">A kosár üres.</p>
-      ) : (
-        <>
-          <div className="space-y-4">
-            {cart.map((item) => (
-              <div key={item.id} className="flex justify-between items-center bg-gray-100 p-4 rounded-lg shadow">
-                <p className="font-medium">{item.name}</p>
-                <p>{item.price} Ft</p>
-                <button
-                  onClick={() => removeFromCart(item.id)}
-                  className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
-                >
-                  ❌ Eltávolítás
-                </button>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-8 p-4 bg-gray-200 rounded-lg text-lg font-semibold">
-            Összesen: <span className="text-blue-700">{totalPrice} Ft</span>
-          </div>
-
-          <button className="mt-6 w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700">
-            💰 Vásárlás indítása (teszt)
+      {/* Szűrő gombok */}
+      <div className="filter-box">
+        <h3 className="filter-title">📦 Válassz boltot:</h3>
+        <div className="store-selector">
+          {stores.map((store) => (
+            <button
+              key={store.name}
+              onClick={() => setSelectedStore(store.name)}
+              className={`store-btn ${selectedStore === store.name ? 'active' : ''}`}
+            >
+              {store.icon} {store.name}
+            </button>
+          ))}
+          <button
+            onClick={() => setSelectedStore("")}
+            className={`store-btn ${selectedStore === "" ? 'active' : ''}`}
+          >
+            🔄 Összes bolt
           </button>
-        </>
+        </div>
+      </div>
+
+      {/* Kosár tartalom */}
+      {cart.length === 0 ? (
+        <div className="empty-cart">😞 A kosár üres.</div>
+      ) : (
+        <div className="grid grid-cols-1 gap-6">
+          {cart.map((item) => (
+            <div key={item.id} className="cart-item">
+              <h3 className="text-xl font-semibold">{item.product}</h3>
+              <div className="store-price-grid">
+                {stores.map((store) => {
+                  const price = getStorePrice(item, store.name);
+                  if (selectedStore && store.name !== selectedStore) return null;
+                  return (
+                    <div key={store.name} className="store-block">
+                      <p className="font-semibold">{store.name}</p>
+                      {price ? (
+                        <p className="price-green">{price} Ft</p>
+                      ) : (
+                        <p className="price-red">❌ Nincs</p>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+              <button
+                onClick={() => removeFromCart(item.id)}
+                className="remove-btn"
+              >
+                ❌ Eltávolítás
+              </button>
+            </div>
+          ))}
+        </div>
       )}
+
+      {/* Összesítő */}
+      <div className="summary-block">
+        <h3 className="text-2xl font-semibold mb-4">💰 Összesítő bolt szerint</h3>
+        {storeTotals.map((s) => (
+          <div key={s.store} className="summary-line">
+            <span>{s.store}</span>
+            <span className={s.total > 0 ? "summary-total" : "summary-missing"}>
+              {s.total > 0 ? `${s.total} Ft` : "Nincs minden termék"}
+            </span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
-
-export default Kosar;
