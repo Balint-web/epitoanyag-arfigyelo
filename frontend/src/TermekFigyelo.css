@@ -3,8 +3,10 @@
   margin: auto;
   padding: 20px;
   min-height: 100vh;
-  overflow-y: auto;
+  padding-bottom: 100px;   /* 🔥 Ez ad helyet a legalsó blokknak */
+  box-sizing: border-box;
 }
+
 
 
 .title {
@@ -129,6 +131,11 @@
   .product-card img {
     height: 160px;
   }
+  
+  category-grid {
+  grid-template-columns: 1fr 1fr;  /* Szép 2 oszlop mobilon */
+  }
+  
 }
 html {
   scroll-behavior: smooth;
