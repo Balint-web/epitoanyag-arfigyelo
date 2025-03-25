@@ -1,29 +1,64 @@
-import React from "react";
+import React, { useState } from "react";
 import { useCart } from "./Context";
+import './Kedvencek.css'; // ✅ Ne feledd behúzni a CSS fájlt!
 
-function Kedvencek() {
-  const { favorites, removeFromFavorites } = useCart();
+const stores = [
+  { name: "Daniella", icon: "🏬" },
+  { name: "Mentavill", icon: "🏢" },
+  { name: "Govill", icon: "🛒" },
+  { name: "Mixvill", icon: "🏠" }
+];
+
+export default function Kedvencek() {
+  const { favorites, removeFromFavorites, addToCart } = useCart();
+  const [selectedStore, setSelectedStore] = useState("");
+
+  const filteredFavorites = selectedStore
+    ? favorites.filter((item) => item.store === selectedStore)
+    : favorites;
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white rounded-xl shadow-lg">
-      <h2 className="text-3xl font-bold mb-6 text-center">❤️ Kedvencek</h2>
+    <div className="kedvencek-container">
+      <h2 className="kedvencek-title">❤️ Kedvenceim</h2>
 
-      {favorites.length === 0 ? (
-        <p className="text-center text-gray-600">Nincsenek kedvenc termékek.</p>
+      {/* ✅ Bolt szűrő */}
+      <div className="filter-box">
+        <label className="filter-label">Kedvenc bolt szűrés:</label>
+        <select
+          className="filter-select"
+          onChange={(e) => setSelectedStore(e.target.value)}
+          value={selectedStore}
+        >
+          <option value="">Összes</option>
+          {stores.map((store) => (
+            <option key={store.name} value={store.name}>
+              {store.icon} {store.name}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {filteredFavorites.length === 0 ? (
+        <div className="empty-message">
+          😢 Jelenleg nincsenek kedvenc termékek.
+        </div>
       ) : (
-        <div className="space-y-4">
-          {favorites.map((item) => (
-            <div key={item.id} className="flex justify-between items-center bg-gray-100 p-4 rounded-lg shadow">
-              <div>
-                <p className="font-medium text-lg">{item.name}</p>
-                <p className="text-gray-600">{item.price} Ft</p>
+        <div className="favorites-grid">
+          {filteredFavorites.map((item) => (
+            <div key={item.id} className="favorite-card">
+              <img
+                src={`https://via.placeholder.com/300x180.png?text=${encodeURIComponent(item.product)}`}
+                alt={item.product}
+                className="favorite-image"
+              />
+              <h3 className="favorite-name">{item.product}</h3>
+              <p className="favorite-price">Ár: <span>{item.price} Ft</span></p>
+              <p className="favorite-store">Bolt: {item.store}</p>
+
+              <div className="favorite-buttons">
+                <button onClick={() => addToCart(item)} className="cart-btn">🛒 Kosárba</button>
+                <button onClick={() => removeFromFavorites(item.id)} className="remove-btn">❌ Törlés</button>
               </div>
-              <button
-                onClick={() => removeFromFavorites(item.id)}
-                className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
-              >
-                ❌ Eltávolítás
-              </button>
             </div>
           ))}
         </div>
@@ -31,5 +66,3 @@ function Kedvencek() {
     </div>
   );
 }
-
-export default Kedvencek;

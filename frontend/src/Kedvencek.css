@@ -1,0 +1,129 @@
+.kedvencek-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+}
+
+.kedvencek-title {
+  text-align: center;
+  font-size: 2.2rem;        /* 🔥 Kisebb betűméret */
+  background: rgba(255, 255, 255, 0.75);  /* 🔥 Áttetszőbb háttér */
+  padding: 16px 25px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  margin-bottom: 40px;
+}
+
+
+.filter-box {
+  text-align: center;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  margin-bottom: 40px;
+}
+
+.filter-label {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-right: 15px;
+}
+
+.filter-select {
+  padding: 12px 20px;
+  font-size: 1rem;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.empty-message {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.75);  /* 🔥 Áttetszőbb lett */
+  padding: 30px;
+  border-radius: 16px;
+  font-size: 1.2rem;
+  color: #333;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+
+.favorites-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.favorite-card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  transition: transform 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.favorite-card:hover {
+  transform: translateY(-8px);
+}
+
+.favorite-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+.favorite-name {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.favorite-price {
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.favorite-store {
+  color: #777;
+  margin-bottom: 20px;
+}
+
+.favorite-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.cart-btn, .remove-btn {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cart-btn {
+  background-color: #1E40AF;
+}
+
+.cart-btn:hover {
+  background-color: #1E3A8A;
+}
+
+.remove-btn {
+  background-color: #DC2626;
+}
+
+.remove-btn:hover {
+  background-color: #B91C1C;
+}
