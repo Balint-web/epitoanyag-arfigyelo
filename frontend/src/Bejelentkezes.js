@@ -13,11 +13,12 @@ const Bejelentkezes = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("https://epitoanyag-arfigyelo.onrender.com/api/login/", {
+      const response = await fetch("https://epitoanyag-arfigyelo.onrender.com/api/users/login/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
+
         body: JSON.stringify({ username: email, password })
       });
 
@@ -40,6 +41,7 @@ const Bejelentkezes = () => {
     <div className="login-container">
       <div className="logo-container">
         <img src="/images/logo.png" alt="Logo" className="logo" />
+
         <h1>Bejelentkezés</h1>
       </div>
 

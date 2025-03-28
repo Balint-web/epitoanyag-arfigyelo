@@ -1,34 +1,35 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "./Context";
-import "./Navbar.css"; // ⬅️ Ne felejtsd el importálni a CSS-t
+import "./Navbar.css";
 
 const Navbar = () => {
   const { user, logoutUser } = useAuth();
 
   return (
-    <div className="navbar-container">
+    <nav className="navbar-container">
       <ul className="nav-links">
         <li><NavLink to="/">Főoldal</NavLink></li>
         <li><NavLink to="/termekek">Termék megfigyelő</NavLink></li>
         <li><NavLink to="/kapcsolat">Kapcsolatok</NavLink></li>
         <li><NavLink to="/kosar">🛒 Kosár</NavLink></li>
         <li><NavLink to="/kedvencek">❤️ Kedvencek</NavLink></li>
-      </ul>
 
-      <div className="nav-auth">
+        {/* Ide jöhet a bejelentkezés / regisztráció is ugyanabban a sorban */}
         {user ? (
-          <button onClick={logoutUser} className="logout-btn">
-            👤 {user.name || "Profil"} (Kijelentkezés)
-          </button>
+          <li>
+            <button onClick={logoutUser} className="logout-btn">
+              👤 {user.name || "Profil"} (Kijelentkezés)
+            </button>
+          </li>
         ) : (
           <>
-            <NavLink to="/bejelentkezes">Bejelentkezés</NavLink>
-            <NavLink to="/regisztracio">Regisztráció</NavLink>
+            <li><NavLink to="/bejelentkezes">Bejelentkezés</NavLink></li>
+            <li><NavLink to="/regisztracio">Regisztráció</NavLink></li>
           </>
         )}
-      </div>
-    </div>
+      </ul>
+    </nav>
   );
 };
 

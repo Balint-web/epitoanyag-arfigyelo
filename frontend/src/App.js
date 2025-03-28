@@ -22,7 +22,7 @@ function App() { // itt van a háttérkép beállításai
     	backgroundPosition: 'center',
     	width: "100%",	
     	minHeight: '100vh',
-	backgroundAttachmant: "fixed", //háttér fix marad
+	backgroundAttachment: "fixed", //háttér fix marad
   	overflow: "hidden", // elkerüli a nemkivánatos görgetést
 	margin: "0",
 	padding:"0",
