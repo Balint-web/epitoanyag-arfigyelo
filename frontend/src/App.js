@@ -9,6 +9,8 @@ import { CartProvider } from "./Context";
 import Kosar from "./Kosar";
 import Kedvencek from "./Kedvencek";
 import TermekFigyelo from "./TermekFigyelo";
+import Navbar from "./Navbar"; // új sor
+
 
 
 function App() { // itt van a háttérkép beállításai
@@ -45,24 +47,14 @@ function App() { // itt van a háttérkép beállításai
 	{/* Az overlay elem hozzáadása */}
         <div style={overlayStyle}></div>
         {/* Logó beillesztése */}
+
         <header className="header">
-          
           <h1>Legjobb árak egy helyen</h1>
         </header>
 
 	{/* Navigációs menü */}
-        <nav className="container">
-          <ul className="nav-links">
-            <li><Link to="/">Főoldal</Link></li>
-            <li><Link to="/termekek">Termék megfigyelő</Link></li>
-            <li><Link to="/kapcsolat">Kapcsolatok</Link></li>
-            <li><Link to="/bejelentkezes">Bejelentkezés</Link></li>
-            <li><Link to="/regisztracio">Regisztráció</Link></li>
-	    <li><Link to="/kosar">🛒 Kosár</Link></li>
-            <li><Link to="/kedvencek">❤️ Kedvencek</Link></li>
-          </ul>
-        </nav>
-
+        <Navbar /> {/* <- EZ AZ ÚJ NAVIGÁCIÓ */}
+          
 	 {/* Útvonalak */}
 
         <Routes>
