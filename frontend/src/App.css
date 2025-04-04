@@ -1,5 +1,14 @@
 /* Alap stílusok */
 .App {
+  /* Módosítható háttérkép */
+  background-image: url("/src/f.jpg");
+  background: none;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  overflow: hidden;
+  font-family: 'Arial', sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,7 +43,7 @@ h1 {
 }
 
 body {
-  background: linear-gradient(to right, #b19975, #b19975);
+  background-image: url("/src/f.jpg");
   margin: 0;
   font-family: 'Arial', sans-serif; /* Válassz egy olvashatóbb betűtípust */
   color: #333; /* Sötétebb szövegszín */
@@ -72,32 +81,6 @@ body {
   }
 }
 
-/* Új stílus a navigációhoz */
-.container {
-  text-align: center;
-}
-
-.nav-links {
-  display: flex;
-  justify-content: center;
-  list-style: none;
-  padding: 0;
-}
-
-.nav-links li {
-  margin: 0 15px;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: black;
-  font-size: clamp(1rem, 3vw, 1.3rem); /* Dinamikus betűméret */
-  font-weight: bold;
-  padding: 10px 15px;
-  border-radius: 5px;
-  transition: background 0.3s ease;
-}
-
 /* Ár összehasonlító táblázat szövegek */
 .price-comparison-table th, .price-comparison-table td {
   font-size: clamp(1rem, 3vw, 1.2rem); /* Dinamikus betűméret */
@@ -107,9 +90,7 @@ select {
   font-size: clamp(0.9rem, 2.5vw, 1rem); /* Dinamikus betűméret */
 }
 
-.nav-links a:hover {
-  background: lightgray;
-}
+
 
 /* Termék figyelő oldal stílusok */
 .termekek-container {
@@ -193,18 +174,39 @@ select::after {
   width: 100%; /* Garantáltan kitölti a rendelkezésre álló teret */
 }
 
+.main-content {
+  display: flex;
+  flex-direction: column; /* A tartalmat egymás alá rendezi */
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px;
+  box-sizing: border-box;
+  margin-left: 250px; /* Pont akkora, mint a navbar szélessége */
+  width: calc(100% - 250px);
+  gap: 20px; /* Távolság a különböző blokkok között */
+}
+
+/* Termékek blokk (ha van ilyen a főoldalon) */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+
 
 .product-card {
+  background: #ffffffd9;
+  border-radius: 12px;
+  padding: 15px;
   text-align: center;
-  cursor: pointer;
-  border: 2px solid #ddd;
-  padding: 10px;
-  border-radius: 10px;
-  transition: 0.3s;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s;
 }
 
 .product-card:hover {
-  transform: scale(1.05);
+  transform: translateY(-5px);
   border-color: #007bff;
 }
 
@@ -219,6 +221,7 @@ select::after {
   margin-top: 20px;
   text-align: center;
 }
+
 
 table {
   width: 100%;
@@ -308,6 +311,8 @@ textarea.input-field {
   text-align: center;
   padding: 10px 20px;
   display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.7);/* Áttetsző sötét háttér */
 }
@@ -328,6 +333,7 @@ textarea.input-field {
 }
 
 .logo {
+  
   width: 120px; /* Kívánt méret */
   height: auto; /* Arányok megőrzése */
   position: static; /* Eltávolítjuk a statikus pozíciót, hogy a flexbox működjön */
@@ -342,6 +348,7 @@ textarea.input-field {
   .background {
     background-size: contain; /* Mobilon inkább "contain", hogy ne vágja le a kép egy részét */
   }
+
 
    /* Szövegek kisebbek legyenek a kisebb képernyőkön */
    .App-header {
@@ -364,77 +371,30 @@ textarea.input-field {
 
   /* Szövegek kisebbek legyenek a kisebb képernyőkön */
   .home-page h2 {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
+    padding: 5px;
   }
 
+
+  .navbar {
+    padding: 10px;
+  }
   .nav-links {
     flex-direction: column; /* Menüpontok egymás alá rendezése */
     align-items: center; /* Középre igazítás */
+    gap: 10px;
   }
 
   .nav-links li {
     margin: 10px 0; /* Nagyobb távolság a menüpontok között */
   }
 
+  .nav-links a {
+    font-size: 0.9rem;
+    padding: 4px;
+  }
 }
 
-.navbar {
-  background: rgba(255, 255, 255, 0.9); /* Enyhén átlátszó fehér háttér */
-  backdrop-filter: blur(10px); /* Üveg effektus */
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Árnyék a kiemeléshez */
-  padding: 15px 30px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-  display: flex;
-  justify-content: space-between; /* Ezt add hozzá, hogy a logó és a menü szét legyen igazítva */
-  align-items: center;
-}
-/* Navigációs sáv */
-.nav-links {
-  display: flex;
-  justify-content: center;
-  list-style: none;
-  gap: 20px;
-  font-size: 18px;
-  padding: 10px 0; /* Több padding a sáv magasságának növeléséhez */
-  margin: 0; /* Menüpontok közötti távolság */
-  background-color: rgba(255, 255, 255, 0.8); /* Világosabb háttér */
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Enyhe árnyék */
-}
-
-.nav-links ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex; /* Menüpontok egy sorban */
-}
-
-
-
-.nav-links li {
-  margin: 0 15px;
-  padding: 0;
-}
-/* Menüpontok */
-.nav-links a {
-  text-decoration: none;
-  color: #333; /* Sötétszürke szín */
-  font-size: clamp(1rem, 3vw, 1.3rem);
-  font-weight: bold;
-  transition: background 0.3s ease;
-  padding: 10px 15px;
-  border-radius: 8px;
-  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Enyhe árnyék a menüpontoknak */
-}
-/*Navigációs menű pontok hátterének állítása link*/
-.nav-links a:hover {
-  background-color: rgb(189, 183, 183); /* háttér */
-  color: #fff; /* Fehér szöveg */
-}
 
 .dropdown {
   position: relative;
@@ -465,22 +425,6 @@ textarea.input-field {
   display: block;
 }
 
-
-
-/* Mobilbarát menü */
-@media (max-width: 768px) {
-  .nav-links {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .navbar {
-    padding: 10px;
-  }
-}
-
-
 /*Termék figyelő odal css rész plusz*/
 .product-grid {
   display: grid;
@@ -507,4 +451,28 @@ html, body, #root {
   height: 100%;
   margin: 0;
   padding: 0;
+}
+
+/*Bejelentkező felület formázása*/
+/* Jobb felső sarokban megjelenő bejelentkezés link */
+.top-right-login {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  z-index: 1000;
+}
+
+.login-link {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 8px 14px;
+  background-color: #007bff;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.login-link:hover {
+  background-color: #0056b3;
 }

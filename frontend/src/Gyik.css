@@ -1,0 +1,94 @@
+/* Gyik.css */
+
+.gyik-container {
+  max-width: 800px;
+  margin: 100px auto 50px;
+  padding: 30px;
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(6px);
+  text-align: left;
+  animation: fadeIn 0.6s ease;
+}
+
+.gyik-title {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 25px;
+  color: #333;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.gyik-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.gyik-item {
+  background-color: #f0f4ff;
+  padding: 15px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.gyik-item:hover {
+  border-color: #2563eb;
+  background-color: #e6efff;
+}
+
+.gyik-question {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1e40af;
+  margin: 0;
+}
+
+.gyik-answer {
+  margin-top: 10px;
+  font-size: 1.1rem;
+  color: #444;
+  line-height: 1.6;
+}
+
+/* Aktív kérdés (nyitott állapot) */
+.gyik-item.active {
+  background-color: #e0edff;
+  border-color: #2563eb;
+}
+
+/* Fade-in animáció */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobil reszponzivitás */
+@media (max-width: 768px) {
+  .gyik-container {
+    margin: 80px 20px 40px;
+    padding: 20px;
+  }
+
+  .gyik-title {
+    font-size: 1.8rem;
+  }
+
+  .gyik-question {
+    font-size: 1.15rem;
+  }
+
+  .gyik-answer {
+    font-size: 1rem;
+  }
+}

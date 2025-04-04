@@ -1,45 +1,112 @@
-.navbar-container {
+/* Általános navigációs sáv stílusok */
+.navbar {
+  background: #e8e9eb; /* Sötétebb tónusú háttér */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Árnyék a navigációs sáv körül */
+  padding: 15px 30px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 14px 30px;
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 16px;
-  margin-bottom: 30px;
-  flex-wrap: wrap;
+  flex-direction: column;  /* Függőleges elrendezés */
+  align-items: center;  /* Középre igazítás */
 }
 
-.nav-links {
+/* A "Legjobb árak" szöveg középre igazítása és nagyobb betűkkel */
+.navbar-container h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  font-family: 'Montserrat', sans-serif;
+  margin-top: 0;
+  width: 100%;  /* Szélesség biztosítása */
+  padding-bottom: 0px;
+  margin-bottom: 10px;  /* Itt növelheted a margót, hogy több hely legyen a navigációs linkek és a szöveg között */
+  margin-top: 10px; /* Továbbra is növelheted a felső margót, hogy több hely legyen */
+
+}
+
+/* Az oldalsáv stílusa */
+.navbar-container {
+  width: 250px;
+  height: 100vh;
+  background-color: #1f2937; /* Sötét háttér */
+  color: white;
+  padding: 20px;
   display: flex;
-  gap: 25px;
+  flex-direction: column;
+  justify-content: flex-start;
+  font-family: 'Arial', sans-serif;
+  box-shadow: px 0 6px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  padding-top: 80px;
+  background: #1f2937; /* Továbbra is sötét háttér */
+}
+
+/* Navigációs linkek */
+.nav-links {
   list-style: none;
   padding: 0;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  text-align: center;
+  width: 100%;  /* Teljes szélesség */
+}
+
+.nav-links li {
   margin: 0;
 }
 
-.nav-links li a {
+.nav-links a {
   text-decoration: none;
-  color: #1e293b;
-  font-weight: 600;
+  color: white; /* Fehér szöveg */
+  font-size: 1.4rem; /* Kisebb betűméret */
+  font-weight: 700; /* Vastagabb betűk */
+  padding: 0px 15px;
+  border-radius: 8px;
+  background-color: transparent;
   transition: color 0.3s;
+  
 }
 
-.nav-links li a:hover {
-  color: #2563eb;
+/* Hover és active állapot módosítása */
+.nav-links a:hover,
+.nav-links a:active {
+  color: white;
+  background-color: transparent;
+  border: none;
 }
 
-/* ✅ Jobb oldali blokk a profil / bejelentkezés résznek */
+/* Ikonok */
+.nav-links li a i {
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+/* Profil és kijelentkezés gombok */
 .nav-auth {
-  margin-left: auto;
+  position: absolute;
+  top: 20px;
+  right: 20px;
   display: flex;
-  align-items: center;
   gap: 20px;
+  font-size: 1.2rem;
+  align-items: center;
 }
 
 .logout-btn {
   background-color: #2563eb;
   color: white;
-  padding: 10px 16px;
+  padding: 10px 20px;
   border-radius: 8px;
   font-weight: 600;
   border: none;

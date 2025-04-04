@@ -1,11 +1,10 @@
 .bejelentkezes-container {
     display: flex;
     justify-content: center;
-    align-items: center;  /* A formot lejjebb húzzuk */
+    align-items: flex-end;  /* A formot lejjebb húzzuk */
     height: 100vh;
     background-color:  rgba(0, 0, 0, 0.3);
-    min-height: 100vh;
-    /*padding-top: 100px; /* A padding-top segítségével a formot lejjebb húzzuk */
+    padding-top: 100px; /* A padding-top segítségével a formot lejjebb húzzuk */
 }
 
 .bejelentkezes-form {
@@ -13,7 +12,7 @@
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    
 
 }
 
@@ -38,21 +37,17 @@ body {
 }
 
 .login-container {
-    background-color: rgba(255,255,255,0.9);;
+    background-color: white;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 40px;
+    padding: 30px;
     width: 350px;
     text-align: center;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
    
 }
 
 .logo-container {
+    
     text-align: center;
     margin-bottom: 20px;
 }
@@ -124,14 +119,3 @@ input:focus {
 .login-button:hover {
     background-color: #0056b3;
 }
-
-.login-page {
-    background-image: url; /* vagy saját háttér */
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }

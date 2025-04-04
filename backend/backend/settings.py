@@ -30,32 +30,43 @@ ALLOWED_HOSTS = ['epitoanyag-arfigyelo.onrender.com', 'localhost', '127.0.0.1'] 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+   'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+    'django.contrib.sites',  # fontos social loginhoz
+
+    # Harmadik féltől
     'rest_framework',
+    'rest_framework.authtoken',  # dj-rest-auth miatt kell
     'corsheaders',
+    
+    'dj_rest_auth',
+    'dj_rest_auth.registration',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.facebook',
+
+    # Saját appok
     'shop',
-    # Saját alkalmazások
     'users',
-    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
-    "corsheaders.middleware.CorsMiddleware",
-    
+    'corsheaders.middleware.CorsMiddleware',  # fontos, ez legyen legfelül
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
 
 ]
 
@@ -142,3 +153,15 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }
+# Új beállítás a regisztrációs mezőkhöz
+ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*']
+
+# Új beállítás a bejelentkezési módszerhez
+ACCOUNT_LOGIN_METHODS = {'email'}
+
+# Ez maradhat a régiben (még nem deprecated):
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
+
+
+# Email backend fejlesztéshez (jelszó visszaállításhoz)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

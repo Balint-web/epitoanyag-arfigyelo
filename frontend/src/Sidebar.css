@@ -1,0 +1,81 @@
+/* Sidebar konténer */
+.sidebar {
+  position: fixed;      /* Fixen marad a képernyő bal oldalán */
+  top: 0;
+  left: 0;
+  width: 220px;        /* Oldalsó sáv szélessége */
+  height: 100%;        /* Kihúzódik az oldal teljes magasságában */
+  background-color: #333;  /* Háttérszín (sötétszürke) */
+  display: flex;
+  color: #fff;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;       /* Belső margó */
+  box-sizing: border-box;
+  z-index: 1000;       /* Fontos, hogy a sidebar előrébb legyen a többi elemnél */
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.4);
+}
+
+/* Linkek */
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  color: #fff;         /* Szövegszín (fehér) */
+  text-decoration: none;
+  margin-bottom: 15px; /* Távolság a linkek között */
+  font-weight: 600;    /* Félkövér szöveg */
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+/* Hover effekt a linkekre */
+.sidebar-link:hover {
+  background-color: #444; /* Hover állapot */
+  color: #fff;
+  transition: background-color 0.3s;
+}
+
+/* Ikonok a linkekhez */
+.sidebar-icon {
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+/* Ha van kiválasztott elem (active), akkor emeld ki */
+.sidebar-link.active {
+  background-color: #555;
+}
+
+/* Törzsszöveg */
+.sidebar-header {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Reszponzív szabályok */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%; /* Az oldal szélessége */
+    left: -100%; /* Kezdetben rejtve van */
+  }
+  
+  .sidebar.open {
+    left: 0; /* Ha megnyitjuk, akkor beúszik */
+  }
+}
+
+/* Hamburger ikon */
+.hamburger {
+  display: none; /* Alapértelmezésben nem látható */
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block; /* Mobil nézetben jelenjen meg */
+  }
+}
