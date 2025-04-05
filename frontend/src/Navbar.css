@@ -136,28 +136,52 @@
     z-index: 999;
   }
 
-  .nav-icons {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
+  /* Hamburger ne váltson kékre */
+  .hamburger-btn.no-highlight:focus {
+    outline: none;
+    background: none;
+    box-shadow: none;
   }
 
+  .nav-icons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 10px;
+    gap: 0;
+  }
+
+  /* Egy ikon blokk */
   .nav-icon {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     color: white;
     font-size: 1.4rem;
     text-decoration: none;
+    padding: 6px 0;
     flex: 1; /* Egyenlő szélességet ad minden elemnek */
     transition: color 0.2s ease;
+    background: transparent;
+    border: none;
+  }
+  .nav-icon span[role="img"] {
+    font-size: 1.4rem; /* nagyobb, mint az alap span */
   }
 
+
   .nav-icon span {
-    font-size: 0.7rem;
-    margin-top: 2px;
+    font-size: 0.75rem;
+    margin-top: 3px;
     color: white;
+  }
+  /* Emoji külön igazítás */
+  .emoji-icon {
+    font-size: 1.4rem;
+   display: block;
+    margin: 0 auto;
   }
 
   .nav-icon:hover {
