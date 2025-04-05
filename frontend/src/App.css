@@ -375,6 +375,12 @@ textarea.input-field {
     padding: 5px;
   }
 
+  .main-content {
+    margin-left: 0; /*nincs eltolás mobilon */
+    width: 100%;     /*szélesség teljes kijelző */
+    padding: 10px;   /* kisebb belső margó */
+    box-sizing: border-box;
+  }
 
   .navbar {
     padding: 10px;
@@ -388,7 +394,10 @@ textarea.input-field {
   .nav-links li {
     margin: 10px 0; /* Nagyobb távolság a menüpontok között */
   }
-
+  .navbar-container {
+    width: 100px; /* kisebb mobilon */
+    padding: 10px;
+  }
   .nav-links a {
     font-size: 0.9rem;
     padding: 4px;
