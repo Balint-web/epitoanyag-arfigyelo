@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     
     'dj_rest_auth',
     'dj_rest_auth.registration',
+    
+    'django_extensions',
 
     'allauth',
     'allauth.account',
@@ -154,14 +156,19 @@ REST_FRAMEWORK = {
     ),
 }
 # Új beállítás a regisztrációs mezőkhöz
-ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*']
+ACCOUNT_SIGNUP_FIELDS = {
+    'username': {'required': False},
+    'email': {'required': True},
+    'password1': {'required': True},
+    'password2': {'required': True},
+}
 
-# Új beállítás a bejelentkezési módszerhez
-ACCOUNT_LOGIN_METHODS = {'email'}
+ACCOUNT_LOGIN_METHOD = 'email'
 
-# Ez maradhat a régiben (még nem deprecated):
 ACCOUNT_EMAIL_VERIFICATION = 'optional'
 
-
-# Email backend fejlesztéshez (jelszó visszaállításhoz)
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# ACCOUNT_EMAIL_REQUIRED = True
+
+SITE_ID = 3

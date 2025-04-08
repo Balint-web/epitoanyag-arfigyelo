@@ -10,7 +10,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # Saját appok
-    path('api/prices/', include('shop.urls')),
+    path('api/', include('shop.urls')),
     path('api/users/', include('users.urls')),
 
     # 🔐 Autentikáció

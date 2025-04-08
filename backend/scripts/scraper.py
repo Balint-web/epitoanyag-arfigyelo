@@ -1,28 +1,10 @@
 import requests
 from bs4 import BeautifulSoup
 from django.utils.timezone import now
-from shop.models import Store, Product, Price, Category
+from shop.models import Store, Product, Price
 
-def detect_category(url):
-    if "kapcsolo" in url or "dugalj" in url:
-        return "Szerelvények (kapcsolók, dugaljak)"
-    elif "kismegszakito" in url or "aramvedo" in url or "firele" in url:
-        return "Védelmi eszközök (kismegszakító, Fi-relé)"
-    elif "ym-j" in url or "h07v" in url:
-        return "Kábelek és vezetékek"
-    elif "eloszto" in url:
-        return "Elosztó szekrények és kiegészítők"
-    elif "lampatest" in url:
-        return "Lámpatestek"
-    elif "csavar" in url or "rögzítő" in url:
-        return "Rögzítési- és kötőanyagok"
-    else:
-        return "Kábelek és vezetékek"  # alapértelmezett kategória
-
-
-# Mentavill kategória oldalak (bővíthető új URL-ekkel is)
-MENTAVILL_CATEGORIES = [
-    "https://www.mentavill.hu/termek/asfora-101-egypolusu-kapcsolo-feher-72068",
+PRODUCT_URLS = [
+     "https://www.mentavill.hu/termek/asfora-101-egypolusu-kapcsolo-feher-72068",
     "https://www.mentavill.hu/termek/asfora-105-csillarkapcsolo-feher-72098",
     "https://www.mentavill.hu/termek/asfora-106-valtokapcsolo-feher-72110",
     "https://www.mentavill.hu/termek/h07v-u-1x-1-5-fekete-mcu-mcu-1-5-63332",
@@ -47,15 +29,15 @@ MENTAVILL_CATEGORIES = [
     "https://www.mentavill.hu/termek/aramvedo-16a-2p-10ma-krd6-2-16-10-firele-208881",
     "https://www.mentavill.hu/termek/aramvedo-63a-2p-30ma-krd6-2-63-30-a-firele-202710",
     "https://www.mentavill.hu/termek/aramvedo-40a-4p-30ma-krd6-4-40-30-a-firele-198956"
-]
 
-def scrape_all():
-    print("🔍 Scraping Mentavill (konkrét termékoldalak)...")
+]
+def run():
+    print(" Scrape-elés Mentavill (konkrét termékoldalak)...")
 
     store, created = Store.objects.get_or_create(name="Mentavill", defaults={"url": "https://www.mentavill.hu/"})
 
-    for url in MENTAVILL_CATEGORIES:
-        print(f"\n📄 Termékoldal: {url}")
+    for url in PRODUCT_URLS:
+        print(f"\n Termékoldal: {url}")
         try:
             response = requests.get(url, timeout=10)
             if response.status_code != 200:
@@ -74,19 +56,13 @@ def scrape_all():
 
             name = name_elem.text.strip()
             image_url = image_elem["src"] if image_elem else ""
-            # Ár megtisztítása és átalakítása
-            price_text = price_elem.split("Ft")[0]
-            price_clean = price_text.replace("\u00a0", "").replace(" ", "").replace(".", "").strip()
-            price = int(price_clean)
+            price = int(price_elem.split("Ft")[0].replace(" ", "").replace(" ", "").replace(".", "").strip())
 
-            category_name = detect_category(url)
-            category_obj, _ = Category.objects.get_or_create(name=category_name)
-            
-            product, created = Product.objects.get_or_create(name=name)
-            product.category = category_obj
-            product.image_url = image_url
-            product.save()
-            
+            product, _ = Product.objects.get_or_create(
+                name=name,
+                defaults={"image_url": image_url}  # A category mezőt itt ne állítsuk be
+            )
+
             Price.objects.update_or_create(
                 product=product,
                 store=store,

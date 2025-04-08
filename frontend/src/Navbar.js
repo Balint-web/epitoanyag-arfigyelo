@@ -21,10 +21,35 @@ const Navbar = () => {
           <li><NavLink to="/login">🕤 Belépés / Regisztráció</NavLink></li>
           <li><NavLink to="/termekek">📉 Árfigyelő</NavLink></li>
           <li><NavLink to="/kapcsolat"><FaHeart /> Kapcsolatok</NavLink></li>
-          <li><NavLink to="/kosar">🧵 Kosár</NavLink></li>
+          <li><NavLink to="/kosar">🩵 Kosár</NavLink></li>
           <li><NavLink to="/kedvencek">❤️ Kedvencek</NavLink></li>
           <li><NavLink to="/gyik">❓ GYIK</NavLink></li>
         </ul>
+      </div>
+
+      {/* 📱 Tablet nézet (769px - 1024px) */}
+      <div className="tablet-navbar tablet-only">
+        <div className="tablet-top-bar">
+          <div className="tablet-left-group">
+            <button onClick={toggleMenu} className="hamburger-btn no-highlight">
+              <FaBars />
+            </button>
+            <NavLink to="/termekek" className="tablet-logo">
+            <span className="emoji-icon" role="img" aria-label="árfigyelő">📉</span>
+            <span className="tablet-logo-text">Árfigyelő</span>
+          </NavLink>
+          </div>
+          <NavLink to="/login" className="tablet-login"><FaUser /> Bejelentkezés</NavLink>
+        </div>
+        {menuOpen && (
+          <div className="tablet-dropdown">
+            <NavLink to="/" onClick={toggleMenu}>🏠 Főoldal</NavLink>
+            <NavLink to="/kapcsolat" onClick={toggleMenu}>📞 Kapcsolat</NavLink>
+            <NavLink to="/gyik" onClick={toggleMenu}>❓ GYIK</NavLink>
+            <NavLink to="/kosar" onClick={toggleMenu}>🩵 Kosár</NavLink>
+            {user && <NavLink to="/kedvencek" onClick={toggleMenu}>❤️ Kedvencek</NavLink>}
+          </div>
+        )}
       </div>
 
       {/* 📱 Mobil nézet */}
@@ -56,7 +81,7 @@ const Navbar = () => {
           <div className="dropdown-menu right-aligned">
             <NavLink to="/" onClick={toggleMenu}>🏠 Főoldal</NavLink>
             <NavLink to="/termekek" onClick={toggleMenu}>📉 Árfigyelő</NavLink>
-            <NavLink to="/kosar" onClick={toggleMenu}>🧵 Kosár</NavLink>
+            <NavLink to="/kosar" onClick={toggleMenu}>🩵 Kosár</NavLink>
             {user && <NavLink to="/kedvencek" onClick={toggleMenu}>❤️ Kedvencek</NavLink>}
             <NavLink to="/gyik" onClick={toggleMenu}>❓ GYIK</NavLink>
             <NavLink to="/kapcsolat" onClick={toggleMenu}>📞 Kapcsolat</NavLink>

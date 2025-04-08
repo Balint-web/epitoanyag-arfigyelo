@@ -43,6 +43,7 @@
   left: 0;
   z-index: 1000;
   padding-top: 80px;
+  overflow-y: auto; /* görgethető, ha nem fér ki */
   background: #1f2937; /* Továbbra is sötét háttér */
 }
 
@@ -239,4 +240,97 @@
     display: block;
   }
  
+
 }
+
+@media (min-width: 769px) and (max-width: 1024px) {
+
+  .tablet-navbar {
+    display: block;
+    width: 100%;
+    background-color: #1f2937;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1001;
+  }
+
+  .tablet-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .tablet-left-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .hamburger-btn.no-highlight {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.6rem;
+  }
+
+  .tablet-login {
+    color: white;
+    font-size: 1rem;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .tablet-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding: 8px 16px;
+    border-radius: 8px;
+  
+  }
+
+  .tablet-dropdown {
+    position: absolute;
+    top: 55px;
+    left: 10px;
+    background: #2d3748;
+    padding: 12px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 1002;
+  }
+
+  .tablet-dropdown a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .tablet-dropdown a:hover {
+    color: #e2e8f0;
+  }
+
+  /* Rejtsük el a mobil és asztali nézetet tablet esetén */
+  .desktop-only,
+  .mobile-only {
+    display: none !important;
+  }
+  .tablet-only {
+    display: block !important;
+  }
+}
+.tablet-only {
+  display: none;
+}
+

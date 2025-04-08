@@ -5,14 +5,25 @@ class Store(models.Model):
     name = models.CharField(max_length=255, unique=True)
     url = models.URLField(unique=True)
 
+    class Meta:
+        verbose_name = "Shop"
+        verbose_name_plural = "Shops"
+
+    def __str__(self):
+        return self.name
+
+class Category(models.Model):
+    """Termékkategóriák tárolása"""
+    name = models.CharField(max_length=100, unique=True)
+
     def __str__(self):
         return self.name
 
 class Product(models.Model):
     """Termékek adatainak tárolása"""
     name = models.CharField(max_length=255)
-    category = models.CharField(max_length=100, blank=True, null=True)
-    image_url = models.URLField(blank=True, null=True)
+    image_url = models.URLField(blank=True)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.name
