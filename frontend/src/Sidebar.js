@@ -1,20 +1,26 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { FaHome, FaSearch, FaShoppingCart, FaHeart } from 'react-icons/fa'; // Ikonok importálása
+import { Link, useNavigate } from 'react-router-dom';
+import { FaHome, FaSearch, FaShoppingCart, FaHeart, FaSignOutAlt, FaSignInAlt } from 'react-icons/fa';
 import './Sidebar.css';
+import { useAuth } from './Context'; // ✅
 
 function Sidebar() {
-  // Aktív menüpont kezelése
   const [activeLink, setActiveLink] = useState('/');
+  const { user, logoutUser } = useAuth(); // ✅
+  const navigate = useNavigate();
 
-  // Funkció, ami kiválasztja az aktív linket
   const handleLinkClick = (path) => {
     setActiveLink(path);
   };
 
+  const handleLogout = () => {
+    logoutUser();
+    navigate("/login"); // irányítsuk vissza a login oldalra
+  };
+
   return (
     <div className="sidebar">
-      <div className="sidebar-header">ChatGPT 4</div>
+      <div className="sidebar-header">Árfigyelő</div>
 
       <Link 
         to="/" 
@@ -31,7 +37,7 @@ function Sidebar() {
         onClick={() => handleLinkClick('/termekfigyelo')}
       >
         <FaSearch className="sidebar-icon" />
-        Termék megfigyelő
+        Árfigyelő
       </Link>
 
       <Link 
@@ -51,6 +57,23 @@ function Sidebar() {
         <FaHeart className="sidebar-icon" />
         Kedvencek
       </Link>
+
+      {/* ✅ Bejelentkezés helyett Kijelentkezés, ha van user */}
+      {user ? (
+        <button className="sidebar-link" onClick={handleLogout}>
+          <FaSignOutAlt className="sidebar-icon" />
+          Kijelentkezés
+        </button>
+      ) : (
+        <Link 
+          to="/login" 
+          className={`sidebar-link ${activeLink === '/login' ? 'active' : ''}`} 
+          onClick={() => handleLinkClick('/login')}
+        >
+          <FaSignInAlt className="sidebar-icon" />
+          Belépés / Regisztráció
+        </Link>
+      )}
     </div>
   );
 }

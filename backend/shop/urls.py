@@ -1,7 +1,15 @@
 from django.urls import path
-from .views import ProductListView, PriceListView
+from django.urls import path
+from .views import (
+    MasterProductListView,
+    PriceListView,
+    GroupedProductAPIView,
+    cart_prices_view
+)
 
 urlpatterns = [
-    path('products/', ProductListView.as_view(), name='product-list'),
-    path('prices/', PriceListView.as_view(), name='price-list'),  # ✅ EZ HIÁNYZOTT
+    path('prices/', PriceListView.as_view(), name='price-list'),
+    path('grouped-products/', GroupedProductAPIView.as_view(), name='grouped-products'),
+    path('cart-prices/', cart_prices_view, name='cart-prices'),
+    path('products/', MasterProductListView.as_view(), name='masterproduct-list'),
 ]

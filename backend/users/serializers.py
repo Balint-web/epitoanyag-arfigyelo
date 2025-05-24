@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from dj_rest_auth.serializers import LoginSerializer
 
 User = get_user_model()
 
@@ -36,3 +37,22 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
             'email': self.user.email
         }
         return data
+
+class CustomLoginSerializer(LoginSerializer):
+    username = None  # username mező kikapcsolása
+
+    def validate(self, attrs):
+        email = attrs.get('email')
+        password = attrs.get('password')
+
+        if email and password:
+            user = self.authenticate(request=self.context.get('request'),
+                                     email=email, password=password)
+
+            if not user:
+                raise serializers.ValidationError("Hibás email vagy jelszó.")
+
+            attrs['user'] = user
+            return attrs
+        else:
+            raise serializers.ValidationError("Email és jelszó kötelező.")

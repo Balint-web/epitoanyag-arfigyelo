@@ -11,18 +11,22 @@
 
 /* A "Legjobb árak" szöveg középre igazítása és nagyobb betűkkel */
 .navbar-container h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #fff;
-  text-align: center;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-  font-family: 'Montserrat', sans-serif;
-  margin-top: 0;
-  width: 100%;  /* Szélesség biztosítása */
-  padding-bottom: 0px;
-  margin-bottom: 10px;  /* Itt növelheted a margót, hogy több hely legyen a navigációs linkek és a szöveg között */
-  margin-top: 10px; /* Továbbra is növelheted a felső margót, hogy több hely legyen */
+  width: 250px;
+  height: 100vh;
+  padding: 20px;
+  padding-top: 60px; 
+  box-sizing: border-box; 
+  background-color: #1f2937;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  font-family: 'Arial', sans-serif;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  overflow-y: auto;
 
 }
 
@@ -122,6 +126,46 @@
 .mobile-only {
   display: none;
 }
+
+/*kijelentkezés gomb*/
+.nav-button {
+  background-color: transparent;
+  color: white;
+  font-size: 1.4rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  padding: 0px 15px;
+  border-radius: 8px;
+  transition: color 0.3s;
+}
+
+.nav-button:hover {
+  color: #f9fafb;
+}
+
+/*  Popup üzenet sikeres kijelentkezésnél */
+.popup-message {
+  position: fixed;
+  top: 50%;
+  left: calc(50% + 125px);
+  transform: translate(-50%, -50%); /* középre igazítás */
+  background-color: #d1fae5;
+  color: #065f46;
+  padding: 16px 24px;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+  z-index: 1500;
+  animation: fadeOut 1s ease 2.5s forwards;
+}
+
+/* Amikor eltűnik */
+.popup-message.fade-out {
+  opacity: 0;
+}
+
 
 /* Mobil nézet (max 768px) */
 

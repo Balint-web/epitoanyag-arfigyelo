@@ -23,9 +23,9 @@ function Kapcsolat() {
     <h2>Kapcsolat</h2>
     <div className="contact-content">
       <div className="form-section">
-        <p>Email: info@example.com</p>
+        <p>Email: arfigyelo.kapcsolat@gmail.com</p>
         <p>Telefon: +36 30 123 4567</p>
-        <p>Cím: Példa utca 1, Budapest</p>
+        <p>Cím: 1011. Budapest, Pala utca 4.</p>
 
         <h3>Kapcsolatfelvételi űrlap</h3>
         <form onSubmit={handleSubmit} className="contact-form">

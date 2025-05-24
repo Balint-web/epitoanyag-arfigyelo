@@ -1,23 +1,24 @@
 .kedvencek-container {
-  max-width: 1200px;
+  width: 80vw;
+  max-width: 1800px; /* nagyobb legyen asztali nézetre */
   margin: auto;
-  padding: 20px;
-  min-height: 100vh;
-  background-color: rgba(255, 255, 255, 0.8);  /* Áttetsző fehér háttér */
-  border-radius: 20px;                          /*  Lekerekített sarkok */
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);    /* Lágy árnyék */
+  padding: 50px;
+  min-height: 40vh;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  
 }
 
 .kedvencek-title {
   text-align: center;
-  font-size: 2.2rem;        /* 🔥 Kisebb betűméret */
-  background: rgba(255, 255, 255, 0.75);  /* 🔥 Áttetszőbb háttér */
-  padding: 16px 25px;
+  font-size: 2.5rem;
+  background: rgba(255, 255, 255, 0.75);
+  padding: 20px 30px;
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   margin-bottom: 40px;
 }
-
 
 .filter-box {
   text-align: center;
@@ -44,7 +45,7 @@
 
 .empty-message {
   text-align: center;
-  background: rgba(255, 255, 255, 0.75);  /* 🔥 Áttetszőbb lett */
+  background: rgba(255, 255, 255, 0.75);
   padding: 30px;
   border-radius: 16px;
   font-size: 1.2rem;
@@ -52,58 +53,90 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
-
+/* Itt a nagy grid javítása */
 .favorites-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 30px;
+  justify-content: center;
 }
 
 .favorite-card {
   background: #ffffff;
-  padding: 20px;
-  border-radius: 16px;
+  padding: 30px 20px;
+  border-radius: 20px;
   box-shadow: 0 8px 16px rgba(0,0,0,0.15);
   transition: transform 0.3s;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  align-items: center;
+  height: 100%;
 }
 
 .favorite-card:hover {
   transform: translateY(-8px);
 }
 
-.favorite-image {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 12px;
-  margin-bottom: 15px;
-}
-
 .favorite-name {
-  font-size: 1.3rem;
-  font-weight: 600;
-  margin-bottom: 10px;
-}
-
-.favorite-price {
-  color: #555;
-  margin-bottom: 10px;
-}
-
-.favorite-store {
-  color: #777;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #111;
+  margin-top: 20px;
   margin-bottom: 20px;
+  text-align: center;
+}
+
+.store-price-grid {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.store-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.store-block p {
+  margin: 0;
+}
+
+.store-name {
+  width: 50%;
+  font-weight: 600;
+  text-align: left;
+}
+
+.store-price {
+  width: 50%;
+  text-align: right;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.price-green {
+  color: #16a34a;
+  font-weight: bold;
+}
+
+.price-red {
+  color: #dc2626;
+  font-weight: bold;
 }
 
 .favorite-buttons {
   display: flex;
   gap: 10px;
+  margin-top: auto;
 }
 
-.cart-btn, .remove-btn {
+.remove-btn {
   flex: 1;
   padding: 12px;
   border: none;
@@ -111,21 +144,53 @@
   color: white;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.cart-btn {
-  background-color: #1E40AF;
-}
-
-.cart-btn:hover {
-  background-color: #1E3A8A;
-}
-
-.remove-btn {
   background-color: #DC2626;
+  transition: background-color 0.3s;
 }
 
 .remove-btn:hover {
   background-color: #B91C1C;
+}
+
+/* Extra nagy képernyők esetén (pl. 1600px+) még több elem férjen ki */
+@media (min-width: 1600px) {
+  .favorites-grid {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  }
+}
+
+/* Normál asztali nézet */
+@media (min-width: 1024px) and (max-width: 1599px) {
+  .favorites-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
+/* Tablet nézet */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .kedvencek-container {
+    width: 100%;          /* teljes szélesség */
+    max-width: 700px;      /* de max. 700px széles legyen */
+    margin: 0 auto; /* 🔥 középre igazítás */
+    padding: 20px;
+    box-sizing: border-box;  /* Fontos! Padding ne tolja ki */
+  }
+
+  .favorites-grid {
+    justify-content: center; /*  középre helyezés */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* kisebb grid */
+    gap: 20px; /* kicsit kisebb legyen a távolság */
+  }
+  .favorite-card {
+    width: 100%;            /* A kártyák szépen kitöltsék a dobozt */
+    max-width: 500px;        /* Maximum méretük legyen */
+  }
+}
+
+/* Telefon nézet */
+@media (max-width: 767px) {
+  .favorites-grid {
+    grid-template-columns: 1fr;
+  }
 }

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,10 +42,11 @@ INSTALLED_APPS = [
     # Harmadik féltől
     'rest_framework',
     'rest_framework.authtoken',  # dj-rest-auth miatt kell
-    'corsheaders',
+    'corsheaders',  # localhost össze kötjük az adadtbázissal
     
     'dj_rest_auth',
     'dj_rest_auth.registration',
+
     
     'django_extensions',
 
@@ -147,24 +149,34 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # fejlesztéshez
-    "https://epitoanyag-arfigyelo.vercel.app",  # ha Vercelen van a frontend
 ]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }
-# Új beállítás a regisztrációs mezőkhöz
-ACCOUNT_SIGNUP_FIELDS = {
-    'username': {'required': False},
-    'email': {'required': True},
-    'password1': {'required': True},
-    'password2': {'required': True},
+
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'AUTH_HEADER_TYPES': ('Bearer',),
 }
+
+REST_AUTH_SERIALIZERS = {
+    'LOGIN_SERIALIZER': 'users.serializers.CustomLoginSerializer',
+}
+
 
 ACCOUNT_LOGIN_METHOD = 'email'
 
+# Allauth regisztrációs beállítások
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_VERIFICATION = 'optional'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -172,3 +184,4 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # ACCOUNT_EMAIL_REQUIRED = True
 
 SITE_ID = 3
+

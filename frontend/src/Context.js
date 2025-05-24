@@ -1,39 +1,50 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 
-// Alap kontextus
 const AppContext = createContext();
 
-// Provider komponens
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [favorites, setFavorites] = useState([]);
-  const [user, setUser] = useState(null); // ✅ Bejelentkezett user
 
-  // Kosárhoz
+  // 🔐 Felhasználó állapot: localStorage-ből töltjük be elsőre
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem("user");
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
+
+  // Kosár műveletek
   const addToCart = (product) => {
-    setCart([...cart, product]);
+    if (!cart.find((item) => item.id === product.id)) {
+      setCart([...cart, product]);
+    }
   };
 
-  const removeFromCart = (productId) => {
-    setCart(cart.filter((item) => item.id !== productId));
+  const removeFromCart = (productName) => {
+    setCart(cart.filter((item) => item.name !== productName));
   };
 
-  // Kedvencekhez
+  // Kedvencek
   const addToFavorites = (product) => {
-    setFavorites([...favorites, product]);
+    if (!favorites.find((item) => item.id === product.id)) {
+      setFavorites([...favorites, product]);
+    }
   };
 
   const removeFromFavorites = (productId) => {
     setFavorites(favorites.filter((item) => item.id !== productId));
   };
 
-  // ✅ Auth funkciók
+  // ✅ Bejelentkezés: mentés localStorage-be
   const loginUser = (userData) => {
     setUser(userData);
+    localStorage.setItem("user", JSON.stringify(userData));
   };
 
+  // ✅ Kijelentkezés: törlés
   const logoutUser = () => {
     setUser(null);
+    localStorage.removeItem("user");
+    localStorage.removeItem("token"); // ha ezt is tárolod
   };
 
   return (
@@ -55,10 +66,8 @@ export const CartProvider = ({ children }) => {
   );
 };
 
-// Kosárhoz, kedvencekhez
 export const useCart = () => useContext(AppContext);
 
-// ✅ Bejelentkezéshez
 export const useAuth = () => {
   const { user, loginUser, logoutUser } = useContext(AppContext);
   return { user, loginUser, logoutUser };

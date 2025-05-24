@@ -2,49 +2,161 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.4);
+  min-height: 40vh;
+  padding: 1rem;
+  background: transparent;
 }
 
 .login-box {
   background: white;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  width: 300px;
+  padding: 3rem 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  width: 500px;
   text-align: center;
 }
 
+/*  Logó */
+.logo {
+  width: 160px;
+  height: auto;
+  margin-bottom: 1.5rem;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
 .login-box h2 {
-  margin-bottom: 20px;
+  font-size: 30px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 2rem;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
-.login-box input {
+.input-container {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.input-container label {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.input-container input {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
+  padding: 16px;
+  font-size: 1.15rem;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 10px;
+  outline: none;
+  transition: border 0.3s;
 }
 
-.login-box button {
+.input-container input:focus {
+  border-color: #007bff;
+}
+
+.login-button {
   width: 100%;
-  padding: 10px;
-  background-color: #007bff;
+  padding: 14px;
+  font-size: 1.1rem;
+  background-color: #1c4775;
   color: white;
-  font-weight: bold;
+  font-weight: 600;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
+  transition: background 0.3s;
+  margin-bottom: 1rem;
 }
 
-.login-box button:hover {
+.login-button:hover {
   background-color: #0056b3;
 }
 
-.login-message {
-  margin-top: 15px;
-  color: #333;
-  font-weight: bold;
+/* ✅ Elfelejtett jelszó gomb – minimalista, átlátszó */
+.forgot-password-button {
+  background: transparent;    /* 🔄 teljesen átlátszó háttér */
+  border: none;               /* 🔄 nincs keret */
+  color: #000;                /* fekete szöveg */
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 8px 0;         /* 🔹 térköz felül és alul */
+  margin: 12px 0;  
+  box-shadow: none;          /* 🔄 nincs árnyék */
+  text-decoration: none;
+  display: inline-block;
 }
 
+.forgot-password-button:hover {
+  text-decoration: underline;
+}
+
+.forgot-password-container {
+  margin-bottom: 1.5rem;
+  text-align: center
+}
+
+/* 🔄 Regisztrációs szöveg */
+.register-section {
+  margin-top: 2rem;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+.register-section button {
+  background: none;
+  border: none;
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding-left: 5px;
+}
+
+/* ✅ Üzenetek */
+.message {
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: #f0f4ff;
+  color: #1d4ed8;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.message.error {
+  background-color: #ffe4e4;
+  color: #d00000;
+}
+
+.message.success {
+  background-color: #d1fae5;
+  color: #065f46;
+  animation: fadeOut 1s ease 2.5s forwards;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+@media (max-width: 768px) {
+  .login-box {
+    width: 400px; 
+    padding: 3rem 2.5rem;
+  }
+
+  .login-wrapper {
+    padding: 1rem 1rem 4rem 1rem; /* TOP, RIGHT, BOTTOM, LEFT - itt az alsó padding nagyobb! */
+  }
+}

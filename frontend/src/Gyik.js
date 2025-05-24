@@ -11,7 +11,7 @@ const questions = [
   {
     question: "Szükséges regisztráció a használathoz?",
     answer:
-      "Nem, de ha kedvenceket vagy kosarat akarsz menteni, akkor igen.",
+      "Nem, de ha kedvenceket akarsz menteni, akkor igen.",
   },
   {
     question: "Milyen gyakran frissülnek az adatok?",

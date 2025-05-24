@@ -13,7 +13,7 @@ const Bejelentkezes = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("https://epitoanyag-arfigyelo.onrender.com/api/users/login/", {
+      const response = await fetch("http://localhost:8000/api/users/login/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -25,7 +25,7 @@ const Bejelentkezes = () => {
       const data = await response.json();
 
       if (response.ok) {
-        loginUser(data); // pl.: { name: "Máté", email: "mate@email.hu" }
+        loginUser(data); // pl.: { name: "Bálint", email: "balint@email.hu" }
         navigate("/");   // visszairányít a főoldalra
       } else {
         alert(data.detail || "Hibás bejelentkezési adatok");

@@ -1,27 +1,29 @@
 import React, { useState } from "react";
-import { useCart } from "./Context";
-import './Kedvencek.css'; // ✅ Ne feledd behúzni a CSS fájlt!
-
-const stores = [
-  { name: "Daniella", icon: "🏬" },
-  { name: "Mentavill", icon: "🏢" },
-  { name: "Govill", icon: "🛒" },
-  { name: "Mixvill", icon: "🏠" }
-];
+import { useCart, useAuth } from "./Context";
+import { Navigate } from "react-router-dom";
+import './Kedvencek.css';
 
 export default function Kedvencek() {
-  const { favorites, removeFromFavorites, addToCart } = useCart();
+  const { favorites, removeFromFavorites } = useCart();
+  const { user } = useAuth();
   const [selectedStore, setSelectedStore] = useState("");
 
+  if (!user) {
+    //  Ha nincs bejelentkezve, átdobjuk a /login oldalra
+    return <Navigate to="/login" replace />;
+  }
+
   const filteredFavorites = selectedStore
-    ? favorites.filter((item) => item.store === selectedStore)
+    ? favorites.filter((item) =>
+        item.offers.some((offer) => offer.store === selectedStore)
+      )
     : favorites;
 
   return (
     <div className="kedvencek-container">
-      <h2 className="kedvencek-title">❤️ Kedvenceim</h2>
+      <h2 className="kedvencek-title">❤️ Kedvenc Termékeim</h2>
 
-      {/* ✅ Bolt szűrő */}
+      {/* Bolt szűrő */}
       <div className="filter-box">
         <label className="filter-label">Kedvenc bolt szűrés:</label>
         <select
@@ -30,9 +32,9 @@ export default function Kedvencek() {
           value={selectedStore}
         >
           <option value="">Összes</option>
-          {stores.map((store) => (
-            <option key={store.name} value={store.name}>
-              {store.icon} {store.name}
+          {[...new Set(favorites.flatMap(item => item.offers.map(offer => offer.store)))].map((store) => (
+            <option key={store} value={store}>
+              {store}
             </option>
           ))}
         </select>
@@ -40,25 +42,39 @@ export default function Kedvencek() {
 
       {filteredFavorites.length === 0 ? (
         <div className="empty-message">
-          😢 Jelenleg nincsenek kedvenc termékek.
+           Jelenleg nincsenek kedvenc termékek.
         </div>
       ) : (
         <div className="favorites-grid">
           {filteredFavorites.map((item) => (
             <div key={item.id} className="favorite-card">
-              <img
-                src={`https://via.placeholder.com/300x180.png?text=${encodeURIComponent(item.product)}`}
-                alt={item.product}
-                className="favorite-image"
-              />
-              <h3 className="favorite-name">{item.product}</h3>
-              <p className="favorite-price">Ár: <span>{item.price} Ft</span></p>
-              <p className="favorite-store">Bolt: {item.store}</p>
+              {/* TERMÉK NEVE */}
+              <h3 className="favorite-name">{item.name}</h3>
 
-              <div className="favorite-buttons">
-                <button onClick={() => addToCart(item)} className="cart-btn">🛒 Kosárba</button>
-                <button onClick={() => removeFromFavorites(item.id)} className="remove-btn">❌ Törlés</button>
+              {/* Boltok és árak */}
+              <div className="store-price-grid">
+                {item.offers.map((offer, index) => {
+                  if (selectedStore && offer.store !== selectedStore) return null;
+                  return (
+                    <div key={index} className="store-block">
+                      <p className="store-name">{offer.store}</p>
+                      {offer.price ? (
+                        <p className="store-price price-green">{offer.price} Ft</p>
+                      ) : (
+                        <p className="store-price price-red">❌ Nincs ár</p>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
+
+              {/* Törlés gomb */}
+              <div className="favorite-buttons">
+                <button onClick={() => removeFromFavorites(item.id)} className="remove-btn">
+                  ❌ Törlés
+                </button>
+              </div>
+
             </div>
           ))}
         </div>

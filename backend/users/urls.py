@@ -1,10 +1,11 @@
 from django.urls import path
 from rest_framework_simplejwt.views import TokenRefreshView
-from .views import RegisterView, CustomTokenObtainPairView, HomeView  # ⬅️ új import
+from .views import RegisterView, CustomTokenObtainPairView, HomeView, EmailLoginView  # ⬅️ új import
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),  # ⬅️ alap útvonal
     path('register/', RegisterView.as_view(), name='register'),
     path('login/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('custom-login/', EmailLoginView.as_view(), name='custom_email_login'),
 ]

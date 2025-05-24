@@ -92,6 +92,7 @@ html, body {
 .product-card img {
   width: 100px;   /* Kisebb kép */
   height: 100px;
+  align-self: center; 
   object-fit: cover;
   margin-bottom: 12px;
 }
@@ -131,6 +132,86 @@ html, body {
   background: linear-gradient(135deg, #1E3A8A, #2563eb);
   transform: scale(1.05);
 }
+
+/*Termék kereső felület*/
+.search-bar {
+  width: 100%;
+  max-width: 500px;
+  margin: 20px auto;
+  position: relative;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 10px;
+  font-size: 18px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+}
+
+.suggestions-list {
+  position: absolute;
+  width: 100%;
+  background: white;
+  border: 1px solid #ccc;
+  z-index: 10;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.suggestions-list li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.suggestions-list li:hover {
+  background-color: #f2f2f2;
+}
+/* Termék kereső mobilra*/
+/* Mobil optimalizálás – max 768px szélességtől */
+@media screen and (max-width: 768px) {
+  .search-bar {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+
+  .search-bar input {
+    font-size: 16px;
+    padding: 8px;
+  }
+
+  .category-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .product-card {
+    padding: 15px;
+  }
+
+  .product-image {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .buttons button {
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+
+  .suggestions-list li {
+    font-size: 16px;
+  }
+}
+
 
 /* ✅ Mobil optimalizáció */
 @media (max-width: 768px) {
