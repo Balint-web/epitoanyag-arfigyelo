@@ -10,6 +10,7 @@ import { CartProvider } from "./Context";
 import Kosar from "./Kosar";
 import Kedvencek from "./Kedvencek";
 import TermekFigyelo from "./TermekFigyelo";
+import ResetPassword from './ResetPassword';
 import Navbar from "./Navbar";
 import Login from './Login';
 import Gyik from './Gyik';
@@ -87,6 +88,7 @@ function App() {
               <Route path="/kapcsolat" element={<Kapcsolat />} />
               <Route path="/bejelentkezes" element={<Bejelentkezes />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
+	      <Route path="/reset-password/:uid/:token" element={<ResetPassword />} />	
               <Route path="/kosar" element={<Kosar />} />
               <Route path="/kedvencek" element={<Kedvencek />} />
               <Route path="/login" element={<Login />} />

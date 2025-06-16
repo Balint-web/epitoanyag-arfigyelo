@@ -119,7 +119,7 @@ def scrape_mentavill():
                 if "/ db" in raw_price or "/db" in raw_price:
                     unit = "db"
 
-                # 🔧 ÚJ kép lekérő rész:
+                #  ÚJ kép lekérő rész
                 image_url = ""
                 try:
                     WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#images img')))
@@ -178,7 +178,6 @@ MIXVILL_URLS = [
     "https://www.mixvill.hu/hu/eloszto-fogyasztasmero-szekrenyek/falon-kivuli-lakaselosztok/mlf-lakaselosztok-fust-szinu-ajtoval/omu-system-mlf12-pd-12-modulos-lakaseloszto-fust-ajtoval",
     "https://www.mixvill.hu/hu/eloszto-fogyasztasmero-szekrenyek/falon-kivuli-lakaselosztok/mlf-lakaselosztok-fust-szinu-ajtoval/omu-system-mlf24-pd-24-modulos-lakaseloszto-fust-ajtoval",
     "https://www.mixvill.hu/hu/ujdonsagok/omu-lighting-22-plugr30123-4000k-emelt-fenyu-led-panel-120x30cm-30w-4000lm-vibralasmentes-ugr19-pmm",
-    "https://www.mixvill.hu/hu/szerelestechnika/gyengearamu-csatlakozok-elosztok/telefon-es-adatatviteli-csatlakozok-tartozekok/05232-modularis-csatlakozo-8p_8c-cat-5-krimpelheto",
     "https://www.mixvill.hu/hu/szerelestechnika/szerszamok-muszerek-tarolok/szerszamok-villanyszereleshez/kabelbehuzo-berudalo-kabelgorgo/runpotec-runpo1-special-20m-es-muanyag-behuzo-szal-kabelbehuzo-4mm-atmeroju-fejjel-30030",
     
 
@@ -210,7 +209,7 @@ MIXVILL_URLS = [
 
 ]
 def scrape_mixvill():
-    print("🔍 Scraping Mixvill (Selenium)...")
+    print(" Scraping Mixvill (Selenium)...")
     store, _ = Store.objects.get_or_create(name="Mixvill", defaults={"url": "https://www.mixvill.hu/"})
 
     options = Options()
@@ -240,16 +239,16 @@ def scrape_mixvill():
                 if price is None:
                     raise Exception("Ár nem található")
 
-                # 👉 Egyszerű kép lekérés (nincs lightbox!)
+                #  Egyszerű kép lekérés (nincs lightbox!)
                 image_url = ""
                 try:
                     image_elem = driver.find_element(By.CSS_SELECTOR, "img.js-qv-product-cover")
                     image_url = image_elem.get_attribute("src")
                 except Exception:
-                    print(f"⚠️ Nincs kép ehhez a termékhez: {name}")
+                    print(f" Nincs kép ehhez a termékhez: {name}")
 
                 if image_url:
-                    print(f"📷 Kép elmentve: {image_url}")
+                    print(f" Kép elmentve: {image_url}")
 
                 # Kategória felismerés
                 category_name = detect_category(url)
@@ -596,9 +595,11 @@ def scrape_govill():
         driver.quit()
                 
 def scrape_all():
-    print("=== 🔄 Scraping összes bolt (Mentavill → Mixvill → Daniella → Govill) ===")
+    print("===  Scraping összes bolt (Mentavill → Mixvill → Daniella → Govill) ===")
     scrape_mentavill()
     scrape_mixvill()
     scrape_daniella()
     scrape_govill()
-scrape_all()
+#if __name__ == "__main__":
+#   print("Árfrissítés indul (runserver)...")
+#   scrape_all()

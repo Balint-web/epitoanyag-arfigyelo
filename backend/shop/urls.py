@@ -4,7 +4,8 @@ from .views import (
     MasterProductListView,
     PriceListView,
     GroupedProductAPIView,
-    cart_prices_view
+    cart_prices_view,
+    send_contact_email
 )
 
 urlpatterns = [
@@ -12,4 +13,5 @@ urlpatterns = [
     path('grouped-products/', GroupedProductAPIView.as_view(), name='grouped-products'),
     path('cart-prices/', cart_prices_view, name='cart-prices'),
     path('products/', MasterProductListView.as_view(), name='masterproduct-list'),
+    path('send-contact-email/', send_contact_email, name='send_contact_email'),
 ]

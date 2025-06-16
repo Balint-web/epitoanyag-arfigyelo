@@ -1,9 +1,8 @@
-from rest_framework import generics
-from rest_framework import viewsets
+from rest_framework import generics, viewsets
 from rest_framework.views import APIView
-from rest_framework.decorators import action
+from rest_framework.decorators import action, api_view
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from django.core.mail import send_mail
 from django.http import JsonResponse
 from collections import defaultdict
 from .models import MasterProduct, Product, Price, Cart, CartItem
@@ -11,8 +10,6 @@ from .serializers import PriceSerializer, StoreSerializer, CartSerializer, Maste
 
 import re
 import unicodedata
-
-
 
 class PriceListView(generics.ListAPIView):
     queryset = Price.objects.select_related('product__category', 'store', 'product')
@@ -22,11 +19,10 @@ class MasterProductListView(generics.ListAPIView):
     queryset = MasterProduct.objects.prefetch_related('offers').all()
     serializer_class = MasterProductSerializer
 
-
 def normalize_name(name):
     name = name.lower().strip()
 
-    # --- 1. Kismegszakító (1P/3P, B/C karakterisztika, áramerősség) ---
+    # --- 1. Kismegszakító
     if "kismegszakító" in name or "omb" in name or "resi9" in name or "stilo" in name:
         pole_match = re.search(r"\b(\d)[ -]?[pbc]\b", name)
         char_match = re.search(r"\b(b|c)\b", name)
@@ -39,7 +35,7 @@ def normalize_name(name):
         if pole and char and amp:
             return f"Kismegszakító {pole} {char} {amp}"
 
-    # --- 2. FI relé / Áramvédő ---
+    # --- 2. FI relé
     if any(keyword in name for keyword in ["fi", "áramvédő", "védőkapcsoló", "resi9"]):
         pole_match = re.search(r"(\d)[\s\-]?p(ólusú)?", name)
         amp_match = re.search(r"(\d{2})\s*a", name)
@@ -52,7 +48,7 @@ def normalize_name(name):
         if pole and amp and ma:
             return f"FI relé {pole} {amp} {ma}"
 
-    # --- 3. Asfora kapcsolók ---
+    # --- 3. Asfora kapcsolók
     if "asfora" in name and any(code in name for code in ["101", "105", "106"]):
         if "101" in name:
             return "Asfora 101 Egypólusú kapcsoló"
@@ -61,13 +57,13 @@ def normalize_name(name):
         elif "106" in name:
             return "Asfora 106 Váltókapcsoló"
 
-    # --- 4. Asfora dugaljak ---
+    # --- 4. Asfora dugaljak
     if "asfora" in name and "2x2p+f" in name:
         return "Asfora dupla dugalj"
     elif "asfora" in name and "2p+f" in name:
         return "Asfora dugalj"
 
-    # --- 5. Valena kapcsolók és dugaljak ---
+    # --- 5. Valena kapcsolók és dugaljak
     if "valena life" in name:
         if "egypólusú" in name:
             return "Valena Egypólusú kapcsoló"
@@ -80,9 +76,8 @@ def normalize_name(name):
         if "2p+f" in name:
             return "Valena dugalj"
 
-    # --- 6. MCU vagy H07V-U vezeték ---
+    # --- 6. MCU vagy H07V-U vezeték
     if "mcu" in name or "h07v-u" in name:
-        # Színek felismerése
         if "z/s" in name or "zöld/sárga" in name or "zöld-sárga" in name or ("zöld" in name and "sárga" in name):
             color = "zöld-sárga"
         elif "fekete" in name:
@@ -91,40 +86,37 @@ def normalize_name(name):
             color = "kék"
         else:
             color = ""
-
-        # Méret felismerés (1x1,5 vagy 1,5 vagy 1.5)
         size_match = re.search(r"(1[,.]5|2[,.]5)", name)
         size = size_match.group(1).replace(',', '.').replace(' ', '') if size_match else ""
 
         if size and color:
             return f"MCU {size}mm {color} rézvezeték"
 
-    # --- 7. NYM-J tömör kábel ---
+    # --- 7. NYM-J tömör kábel
     if "nym-j" in name or "mbcu" in name or "mb cu" in name:
         core = re.search(r"(\d)x\s*(1[,.]5|2[,.]5|4)", name)
         if core:
             count, size = core.groups()
             return f"NYM-J {count}x{size.replace(',', '.')} kábel"
 
-    # --- 8. MT (H05VV-F) hajlékony kábel ---
+    # --- 8. MT kábel
     if "h05vv-f" in name or "mt" in name:
         core = re.search(r"(\d)x\s*(1[,.]5|1|2[,.]5)", name)
         if core:
             count, size = core.groups()
             return f"H05VV-F {count}x{size.replace(',', '.')} kábel"
 
-    # --- 9. WAGO kötőelem ---
+    # --- 9. WAGO
     if "wago" in name:
         model = re.search(r"221-\d{3}", name)
         return f"WAGO {model.group(0)} kötőelem" if model else "WAGO kötőelem"
 
-    # --- 10. LED fényvető / reflektor ---
+    # --- 10. LED fényvető
     if "fényvető" in name or "reflektor" in name:
         watt = re.search(r"(\d{1,2})w", name)
         motion = " mozgásérzékelővel" if "mozgásérzékelő" in name else ""
         return f"LED fényvető {watt.group(1)}W{motion}" if watt else "LED fényvető"
 
-    # --- 11. Végső fallback: visszaadjuk az eredeti normalizált nevet ---
     return name.strip()
 
 class GroupedProductAPIView(APIView):
@@ -145,13 +137,7 @@ class GroupedProductAPIView(APIView):
         result = []
         for name, offers in grouped.items():
             min_price = min(o['price'] for o in offers)
-
-            # 📸 Kép választás: első normális image_url-t tartalmazó ajánlat
-            valid_image_offer = next(
-                (o for o in offers if o['image_url'] and "no-image" not in o['image_url'] and "loading" not in o['image_url']),
-                None
-            )
-
+            valid_image_offer = next((o for o in offers if o['image_url'] and "no-image" not in o['image_url'] and "loading" not in o['image_url']), None)
             result.append({
                 'name': name,
                 'min_price': min_price,
@@ -195,10 +181,7 @@ def cart_prices_view(request):
             continue
 
         prices = Price.objects.filter(product=product)
-        price_map = {}
-        for p in prices:
-            price_map[p.store.name] = p.price
-
+        price_map = {p.store.name: p.price for p in prices}
         for store_name in ["Govill", "Mentavill", "Daniella", "Mixvill"]:
             price_map.setdefault(store_name, None)
 
@@ -226,9 +209,7 @@ def favorites_prices_view(request):
             continue
 
         prices = Price.objects.filter(product=product)
-        price_map = {}
-        for p in prices:
-            price_map[p.store.name] = p.price
+        price_map = {p.store.name: p.price for p in prices}
 
         response_data.append({
             "product_id": product.id,
@@ -239,3 +220,25 @@ def favorites_prices_view(request):
         })
 
     return JsonResponse(response_data, safe=False)
+
+@api_view(['POST'])
+def send_contact_email(request):
+    data = request.data
+    name = data.get("nev")
+    email = data.get("email")
+    subject = data.get("targy")
+    message = data.get("uzenet")
+
+    full_message = f"Név: {name}\nEmail: {email}\n\nÜzenet:\n{message}"
+
+    try:
+        send_mail(
+            subject=subject,
+            message=full_message,
+            from_email='arfigyelo.kapcsolat@gmail.com',
+            recipient_list=['arfigyelo.kapcsolat@gmail.com'],
+            fail_silently=False,
+        )
+        return Response({"success": True, "message": "Üzenet elküldve!"})
+    except Exception as e:
+        return Response({"success": False, "error": str(e)}, status=500)

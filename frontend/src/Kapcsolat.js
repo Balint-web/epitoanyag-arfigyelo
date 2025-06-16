@@ -13,9 +13,26 @@ function Kapcsolat() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert("Üzenet elküldve!");
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const response = await fetch("http://localhost:8000/api/send-contact-email/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      alert("Üzenet sikeresen elküldve!");
+    } else {
+      alert("Hiba történt: " + result.error);
+    }
+  } catch (error) {
+    alert("Kapcsolatfelvételi hiba: " + error.message);
+  }
   };
 
   return (
